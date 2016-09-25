@@ -1,11 +1,21 @@
 <html>
 <body>
+{{#name}}
 
-<form action="/inputText" method="post">
-    <input type="text" placeholder="Enter your message" name="message"/>
-    <button type="submit">Send</button>
-</form>
+Hello, {{.}}!
+
 <button type="submit"><a href="/logout">Logout</a></button>
+<button type="submit"><a href="/chat">Go chat!</a></button>
 
+{{/name}}
+
+{{^name}}
+
+<form action="/login" method="post">
+    <input type="text" placeholder="Enter your name" name="userName"/>
+    <button type="submit">Login</button>
+</form>
+
+{{/name}}
 </body>
 </html>

@@ -1,21 +1,40 @@
-<html>
-<body>
-{{#name}}
+<html lang="en-US" ng-app="TIYAngularChatApp">
 
-Hello, {{.}}!
+<!--
+{{! changing the mustache delimiter so it doesn't conflict with  }}
+{{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+{{=<% %>=}}
+-->
 
-<button type="submit"><a href="/logout">Logout</a></button>
-<button type="submit"><a href="/chat">Go chat!</a></button>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="../static/js/tiy-ng-controller.js"></script>
+<script src="js/tiy-ng-controller.js"></script>
 
-{{/name}}
+<body ng-controller="ChatController">
 
-{{^name}}
+<div style="position: relative; float: left; width: 40%; padding: 20px;">
+    <form action="/inputText" method="post">
+        <input type="text" placeholder="Enter your message" name="message" ng-model="newMessage.text"/>
+        <button type="submit" ng-click="addMessage()">Send</button>
+    </form>
+    <button type="submit"><a href="/logout">Logout</a></button>
 
-<form action="/login" method="post">
-    <input type="text" placeholder="Enter your name" name="userName"/>
-    <button type="submit">Login</button>
-</form>
+    <input type="button" ng-click="getMessages()" value="Refresh Chat Log"/>
 
-{{/name}}
+</div>
+
+<br/><br/><br/><br/><br/>
+
+<div style="position: relative; float: left; width: 40%; padding: 20px;">
+    <h2>Chat Log</h2>
+    <ul>
+        <li ng-repeat="message in messages">
+            {{message.text}}
+            <!--<button ng-click="deleteGame(game.id)">delete</button>-->
+            <!--<button ng-click="toggleGame(game.id)">toggle</button>-->
+        </li>
+    </ul>
+</div>
+
 </body>
 </html>
