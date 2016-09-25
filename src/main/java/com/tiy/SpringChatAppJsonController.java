@@ -19,6 +19,9 @@ public class SpringChatAppJsonController {
     @Autowired
     MessageRepo messages;
 
+    @Autowired
+    UserRepo users;
+
     @RequestMapping(path = "/chat.json", method = RequestMethod.GET)
     public Message jsonHome(String text, User user) {
         return new Message(text, user);
@@ -44,10 +47,30 @@ public class SpringChatAppJsonController {
         return messageHistory;
     }
 
+    @RequestMapping(path = "/userList.json", method = RequestMethod.GET)
+    public List<User> getUsers() {
+
+        List<User> userList = new ArrayList<>();
+        Iterable<User> allUsers = users.findAll();
+        for (User user : allUsers) {
+            userList.add(user);
+        }
+
+//        try {
+//            System.out.println("Catching a nap!");
+//            Thread.sleep(3000);
+//            System.out.println("Power naps are the best!!!");
+//        } catch (Exception exception) {
+//            exception.printStackTrace();
+//        }
+
+        return userList;
+    }
+
     @RequestMapping(path = "/addMessage.json", method = RequestMethod.POST)
     public List<Message> addMessage(HttpSession session, @RequestBody Message message) throws Exception {
 //        User user = (User)session.getAttribute("user");
-
+//
 //        if (user == null) {
 //            throw new Exception("Unable to add message without an active user in the session");
 //        }
@@ -56,5 +79,19 @@ public class SpringChatAppJsonController {
         messages.save(message);
 
         return getMessages();
+    }
+
+    @RequestMapping(path = "/addUser.json", method = RequestMethod.POST)
+    public List<User> addUser(HttpSession session, @RequestBody User user) throws Exception {
+//        User user = (User)session.getAttribute("user");
+//
+//        if (user == null) {
+//            throw new Exception("Unable to add message without an active user in the session");
+//        }
+//        message.user = user;
+
+        users.save(user);
+
+        return getUsers();
     }
 }

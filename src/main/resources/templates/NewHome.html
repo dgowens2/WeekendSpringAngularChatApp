@@ -1,0 +1,22 @@
+<html lang="en-US" ng-app="TIYAngularChatApp">
+
+<!--
+{{! changing the mustache delimiter so it doesn't conflict with  }}
+{{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+{{=<% %>=}}
+-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="../static/js/tiy-ng-controller.js"></script>
+<script src="js/tiy-ng-controller.js"></script>
+
+<body ng-controller="ChatController">
+
+
+<form action="/login" method="post">
+    <input type="text" placeholder="Username" name="userName" ng-model="newUser.name" required/>
+    <button type="submit" ng-click="addUser()">Login</button>
+</form>
+
+</body>
+</html>

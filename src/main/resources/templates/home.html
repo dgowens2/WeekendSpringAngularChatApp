@@ -12,6 +12,15 @@
 
 <body ng-controller="ChatController">
 
+<%^user%>
+<form action="/login" method="post">
+    <input type="text" placeholder="Username" name="userName" ng-model="newUser.name" required/>
+    <button type="submit" ng-click="addUser()">Login</button>
+</form>
+<%/user%>
+
+<%#user%>
+
 <div style="position: relative; float: left; width: 40%; padding: 20px;">
     <form action="/inputText" method="post">
         <input type="text" placeholder="Enter your message" name="message" ng-model="newMessage.text"/>
@@ -29,12 +38,11 @@
     <h2>Chat Log</h2>
     <ul>
         <li ng-repeat="message in messages">
+            <!--<%user.name%>: -->
             {{message.text}}
-            <!--<button ng-click="deleteGame(game.id)">delete</button>-->
-            <!--<button ng-click="toggleGame(game.id)">toggle</button>-->
         </li>
     </ul>
 </div>
-
+<%/user%>
 </body>
 </html>

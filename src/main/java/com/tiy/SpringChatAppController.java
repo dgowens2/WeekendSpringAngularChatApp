@@ -14,7 +14,7 @@ import java.util.List;
  * Created by DTG2 on 09/23/16.
  */
 @Controller
-public class SampleSpringAppController {
+public class SpringChatAppController {
 
     @Autowired
     MessageRepo messages;
@@ -23,17 +23,14 @@ public class SampleSpringAppController {
     UserRepo users;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-//    public String home(Model model, HttpSession session) {
-//        model.addAttribute("name", session.getAttribute("userName"));
-//        return "home";
     public String home(Model model, HttpSession session, String text) {
 
-//        if (session.getAttribute("user") != null) {
-//            model.addAttribute("user", session.getAttribute("user"));
-//        }
+        if (session.getAttribute("user") != null) {
+            model.addAttribute("user", session.getAttribute("user"));
+        }
 
         List<Message> messageList = new ArrayList<>();
-        if (text != null) {
+        if (users != null) {
             messageList = messages.findByText(text);
         } else {
             User savedUser = (User)session.getAttribute("user");
@@ -53,12 +50,17 @@ public class SampleSpringAppController {
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
-        session.removeAttribute("userName");
+        session.removeAttribute("user");
         return "redirect:/";
     }
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(HttpSession session, String userName) {
-        session.setAttribute("userName", userName);
+        User user = users.findFirstByName(userName);
+        if (user == null) {
+            user = new User(userName);
+            users.save(user);
+        }
+        session.setAttribute("user", user);
         return "redirect:/";
     }
 
