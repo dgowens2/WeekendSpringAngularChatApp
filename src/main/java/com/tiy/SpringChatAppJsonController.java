@@ -69,12 +69,12 @@ public class SpringChatAppJsonController {
 
     @RequestMapping(path = "/addMessage.json", method = RequestMethod.POST)
     public List<Message> addMessage(HttpSession session, @RequestBody Message message) throws Exception {
-//        User user = (User)session.getAttribute("user");
-//
-//        if (user == null) {
-//            throw new Exception("Unable to add message without an active user in the session");
-//        }
-//        message.user = user;
+        User user = (User)session.getAttribute("user");
+
+        if (user == null) {
+            throw new Exception("Unable to add message without an active user in the session");
+        }
+        message.user = user;
 
         messages.save(message);
 
