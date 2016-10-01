@@ -89,8 +89,9 @@ public class SpringChatAppJsonController {
 //            throw new Exception("Unable to add message without an active user in the session");
 //        }
 //        message.user = user;
-
-        users.save(user);
+        if (user.name == null) {
+            users.save(user);
+        }
 
         return getUsers();
     }

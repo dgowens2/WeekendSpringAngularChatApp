@@ -24,7 +24,7 @@ angular.module('TIYAngularChatApp', [])
        $scope.addMessage = function() {
            console.log("About to add the following message " + JSON.stringify($scope.newMessage));
 
-           $http.post("/addMessage.json", $scope.newMessage, $scope.newUser)
+           $http.post("/addMessage.json", $scope.newMessage)
                .then(
                    function successCallback(response) {
                        console.log("about to add message")

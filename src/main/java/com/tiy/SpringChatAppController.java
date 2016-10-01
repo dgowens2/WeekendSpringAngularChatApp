@@ -43,7 +43,7 @@ public class SpringChatAppController {
                 }
             }
         }
-        model.addAttribute("games", messageList);
+        model.addAttribute("messages", messageList);
         System.out.println("message added to db from home in controller");
         return "home";
     }
@@ -66,7 +66,7 @@ public class SpringChatAppController {
 
     @RequestMapping(path = "/chat", method = RequestMethod.GET)
     public String chat() {
-        return "chat";
+        return "redirect:/";
     }
 
     @RequestMapping(path = "/inputText", method = RequestMethod.POST)
